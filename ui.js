@@ -408,13 +408,13 @@ const UI = {
               this.showMessage('Record added successfully!');
           }
           
-          this.closeDataModal();
-          this.refreshDirectories();
-          
-          // Update full view if currently viewing this directory
+          // Always update the full view first if we're on it
           if (this.currentViewDirectoryId === this.currentDirectoryId) {
               this.updateFullView();
           }
+          
+          this.closeDataModal();
+          this.refreshDirectories();
       } catch (error) {
           this.showMessage(error.message, 'error');
       }
