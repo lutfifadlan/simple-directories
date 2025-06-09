@@ -32,7 +32,9 @@ const DataManager = {
         const parsedData = JSON.parse(savedData);
         
         // Handle date objects which are stored as strings
-        if (parsedData.directories && parsedData.directories.length > 0) {
+        if (parsedData.directories) {
+          // Even if the directories array is empty, we should respect that
+          // as the user may have deleted all directories
           parsedData.directories.forEach(dir => {
             if (dir.created) {
               dir.created = new Date(dir.created);
@@ -49,6 +51,7 @@ const DataManager = {
       }
       
       // If no data in localStorage or parsing failed, use default data
+      // This should only happen on the very first run of the application
       this.directories = JSON.parse(JSON.stringify(this._defaultDirectories));
       this.nextId = 2;
       this.nextDataId = 6;
